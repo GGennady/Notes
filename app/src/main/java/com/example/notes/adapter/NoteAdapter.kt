@@ -1,5 +1,6 @@
 package com.example.notes.adapter
 
+import android.annotation.SuppressLint
 import android.provider.ContactsContract.CommonDataKinds.Note
 import android.view.LayoutInflater
 import android.view.View
@@ -28,6 +29,12 @@ class NoteAdapter: RecyclerView.Adapter<NoteAdapter.NoteViewHolder>() {
 
     override fun getItemCount(): Int {
         return listNote.size
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    fun setList(list: List<NoteModel>) {
+        listNote = list
+        notifyDataSetChanged()
     }
 
 }
