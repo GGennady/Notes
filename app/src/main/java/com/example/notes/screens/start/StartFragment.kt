@@ -11,6 +11,7 @@ import com.example.notes.APP
 import com.example.notes.R
 import com.example.notes.adapter.NoteAdapter
 import com.example.notes.databinding.FragmentStartBinding
+import com.example.notes.model.NoteModel
 
 
 class StartFragment : Fragment() {
@@ -57,6 +58,14 @@ class StartFragment : Fragment() {
 
         binding.btnNext.setOnClickListener() {
             APP.navController.navigate(R.id.action_startFragment_to_addNoteFragment)
+        }
+    }
+
+    companion object {
+        fun clickNote(noteModel: NoteModel) {
+            val bundle = Bundle()
+            bundle.putSerializable("note", noteModel)
+            APP.navController.navigate(R.id.action_startFragment_to_detailFragment, bundle)
         }
     }
 
