@@ -8,14 +8,23 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.notes.R
+import com.example.notes.databinding.ItemLayoutBinding
 import com.example.notes.model.NoteModel
+
+// 1. NoteViewHolder class is being created
+// 2. "view" from onCreateViewHolder is transferred to NoteViewHolder class
+// 3. class NoteViewHolder transferred to onBindViewHolder (to be able to fill in the fun bind())
 
 class NoteAdapter: RecyclerView.Adapter<NoteAdapter.NoteViewHolder>() {
 
     var listNote = emptyList<NoteModel>()
 
-    class NoteViewHolder(view: View): RecyclerView.ViewHolder(view) {
-        val titleView: TextView = itemView.findViewById(R.id.item_title)
+    class NoteViewHolder(item: View): RecyclerView.ViewHolder(item) {
+        val binding = ItemLayoutBinding.bind(item)
+
+        fun bind(noteModel: NoteModel) = with(binding) {
+            itemTitle.text = noteModel.title
+        }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NoteViewHolder {
@@ -24,7 +33,7 @@ class NoteAdapter: RecyclerView.Adapter<NoteAdapter.NoteViewHolder>() {
     }
 
     override fun onBindViewHolder(holder: NoteViewHolder, position: Int) {
-        holder.titleView.text = listNote[position].title
+        holder.bind(listNote[position])
     }
 
     override fun getItemCount(): Int {

@@ -21,6 +21,7 @@ class StartFragment : Fragment() {
 
     lateinit var recyclerView: RecyclerView
     lateinit var adapter: NoteAdapter
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -43,21 +44,24 @@ class StartFragment : Fragment() {
         adapter = NoteAdapter()
         recyclerView.adapter = adapter
 
-        // Что это такое?
-        // Это лямбда-функция (анонимная функция). Лямбда-функция принимает один параметр — listNotes,
-        // который представляет собой обновленный список заметок.
-        //
-        // Как это работает?
-        // Каждый раз, когда LiveData, возвращаемое viewModel.getAllNotes(), обновляет свои данные,
-        // вызывается эта лямбда-функция. Она передает обновленный список заметок в метод setList() адаптера.
+        // What is this?
+        // This is a lambda function (anonymous function). The lambda function takes one parameter, listNotes,
+        // which is the updated list of notes.
 
+        // How does it work?
+        // Every time the LiveData(returned by viewModel.getAllNotes()) updates its data,
+        // this lambda function is called. It transferred the updated list of notes to the adapter's setList() method.
         viewModel.getAllNotes().observe(viewLifecycleOwner) { listNotes ->
-            listNotes.asReversed()
-            adapter.setList(listNotes)
+            adapter.setList(listNotes.asReversed())
         }
 
         binding.btnNext.setOnClickListener() {
             APP.navController.navigate(R.id.action_startFragment_to_addNoteFragment)
         }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
     }
 }

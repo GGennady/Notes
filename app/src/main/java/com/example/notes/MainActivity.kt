@@ -22,7 +22,7 @@ class MainActivity : AppCompatActivity() {
 
         APP = this
 
-        // Найдем NavHostFragment и получим NavController
+        // Find NavHostFragment than get NavController
         val navHostFragment =
             supportFragmentManager.findFragmentById(R.id.nav_fragment) as? NavHostFragment
                 ?: throw IllegalStateException("NavHostFragment not found!")
@@ -31,7 +31,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onDestroy() {
         super.onDestroy()
-        _binding = null // Освобождение binding
+        _binding = null
     }
 }
 
